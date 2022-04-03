@@ -1,2 +1,2 @@
 # pyWordle
- Text based Wordle
+ Text based Wordle - just a quick Saturday afternoon project
