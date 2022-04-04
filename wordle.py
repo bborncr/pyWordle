@@ -33,7 +33,7 @@ def is_in_dictionary(key_guess):
     
 
 def user_guess():
-    key_guess = input("5 letter guess: ")
+    key_guess = input("5 letter guess: ").lower()
     key_guess_size = len(key_guess)
     if key_guess_size != 5:
         return (key_guess, _NOT_5_LETTERS)
