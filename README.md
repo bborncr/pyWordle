@@ -1,6 +1,7 @@
 # pyWordle
  Text based Wordle - just a quick Saturday afternoon project
-'''
+ 
+```
 Welcome to pyWordle!
 You have 6 attempts to guess the 5 letter word
 
@@ -19,4 +20,4 @@ You have 6 attempts to guess the 5 letter word
 5 letter guess: stood
  *s*  *t*  *o*  *o*  *d*   Remaining letters: qvjzkx
 You won! Using 5 guesses!
-'''
+```
