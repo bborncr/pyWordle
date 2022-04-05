@@ -7,6 +7,9 @@ _NOT_IN_DICTIONARY = 3
 
 _MAX_ATTEMPTS = 6
 
+available_letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                     'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}
+
 with open('words.txt', 'r') as f:
     words = []
     for line in f:
@@ -32,15 +35,18 @@ def is_in_dictionary(key_guess):
         return False
     
 
-def user_guess():
+def user_guess(letter_set):
     key_guess = input("5 letter guess: ").lower()
     key_guess_size = len(key_guess)
+    key_guess_list = set(list(key_guess))
     if key_guess_size != 5:
-        return (key_guess, _NOT_5_LETTERS)
+        return (key_guess, _NOT_5_LETTERS, letter_set)
     elif not is_in_dictionary(key_guess):
-        return (key_guess, _NOT_IN_DICTIONARY)
+        return (key_guess, _NOT_IN_DICTIONARY, letter_set)
     else:
-        return (key_guess, _VALID_GUESS)
+        for letter in key_guess_list:
+            letter_set.discard(letter)
+        return (key_guess, _VALID_GUESS, letter_set)
 
 
 def analysis(guess_str, word_str):
@@ -67,16 +73,16 @@ print('--- letter is not in the word\n')
 
 while True:
     
-    guess_word, return_code = user_guess()
-    
+    guess_word, return_code, letters = user_guess(available_letters)
+    remaining_string = "".join(letters)
     if return_code == _VALID_GUESS:
-        print(analysis(guess_word, word))
+        print('{}  Remaining letters: {}'.format(analysis(guess_word, word), remaining_string))
         attempts = attempts - 1
     elif return_code == _NOT_IN_DICTIONARY:
-        print('Word not in dictionary - try again')
+        print('Word not in dictionary - Remaining letters: {}'.format(remaining_string))
     elif return_code == _NOT_5_LETTERS:
         guess_word = None
-        print('Word must contain 5 letters - try again')
+        print('Word must contain 5 letters - Remaining letters: {}'.format(remaining_string))
 
     if guess_word == word:
         print("You won! Using {} guesses!".format(_MAX_ATTEMPTS - attempts))
@@ -86,3 +92,4 @@ while True:
         print('Too many attempts!')
         print('The word was {}'.format(word))
         break
+    available_letters = letters
