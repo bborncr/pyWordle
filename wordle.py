@@ -74,7 +74,7 @@ print('--- letter is not in the word\n')
 while True:
     
     guess_word, return_code, letters = user_guess(available_letters)
-    remaining_string = "".join(letters)
+    remaining_string = "".join(sorted(letters))
     if return_code == _VALID_GUESS:
         print('{}  Remaining letters: {}'.format(analysis(guess_word, word), remaining_string))
         attempts = attempts - 1
